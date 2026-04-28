@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+  --native-bg: #060F0A; /* Cinematic Dark Forest */
+  --native-deep: #001B2E; /* Official Pantone Dark Navy for depth */
+  --native-forest: #1A261F; /* Refined natural green */
+  --native-gold: #B0A36D; /* Official Logo Gold */
+  --native-gold-soft: #D4C99E;
+  --native-sand: #E8E1D6; /* Official Light Sand */
+  --native-accent: #D7C3A9; /* Official Tan */
+  --native-white: #FDFDFB;
+  --native-gray: #8A8A8A;
+  
+  --font-main: 'Montserrat', sans-serif;
+  --font-accent: 'Inter', sans-serif;
+  
+  --section-padding: 160px 8%;
+  --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--native-bg);
+  color: var(--native-white);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Noise Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-main);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Luxury Buttons */
+.btn-premium {
+  padding: 20px 45px;
+  background-color: var(--native-gold);
+  color: var(--native-bg);
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  transition: var(--transition);
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-premium:hover {
+  background-color: var(--native-white);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.btn-outline {
+  padding: 18px 42px;
+  background-color: transparent;
+  color: var(--native-white);
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.btn-outline:hover {
+  border-color: var(--native-gold);
+  color: var(--native-gold);
+}
+
+/* Typography Utilities */
+.text-outline {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+  color: transparent;
+}
+
+.text-gold {
+  color: var(--native-gold);
+}
+
+.label-gold {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  color: var(--native-gold);
+  margin-bottom: 20px;
+  display: block;
+  font-weight: 700;
+}
+
+.title-xl {
+  font-size: clamp(4rem, 15vw, 12rem);
+  line-height: 0.85;
+  font-weight: 800;
+}
+
+.title-lg {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.95;
+  font-weight: 800;
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: rgba(20, 36, 26, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(176, 164, 109, 0.15);
+}
+
+/* Scroll Animations Base */
+.reveal-text {
+  overflow: hidden;
+  display: block;
+}
+
+.reveal-text span {
+  display: block;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--native-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--native-gold);
+}
+
