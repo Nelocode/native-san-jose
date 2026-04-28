@@ -80,7 +80,7 @@ const Hero: React.FC = () => {
             <motion.span 
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
               style={{ display: 'block' }}
             >
               NATIVE
@@ -88,9 +88,13 @@ const Hero: React.FC = () => {
             <motion.span 
               initial={{ x: 100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
               className="text-outline"
-              style={{ display: 'block', marginLeft: '15%' }}
+              style={{ 
+                display: 'block', 
+                marginLeft: window.innerWidth > 768 ? '15%' : '0',
+                textAlign: window.innerWidth > 768 ? 'left' : 'center'
+              }}
             >
               SAN JOSÉ
             </motion.span>

@@ -1,7 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const amenities = [
+interface Amenity {
+  title: string;
+  category: string;
+  image: string;
+  size: string;
+  description: string;
+}
+
+const amenities: Amenity[] = [
   {
     title: 'COWORKING LAB',
     category: 'CONECTIVIDAD',
@@ -48,21 +56,17 @@ const Amenities: React.FC = () => {
           </motion.h2>
         </div>
 
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(12, 1fr)', 
-          gridAutoRows: 'minmax(400px, auto)',
-          gap: '30px' 
-        }}>
+        <div className="cinema-grid">
           {/* Main Tall Item */}
           <motion.div 
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2 }}
+            className="amenity-item-tall"
             style={{ 
-              gridColumn: '1 / span 5', 
-              gridRow: '1 / span 2',
+              gridColumn: window.innerWidth > 1024 ? '1 / span 5' : 'auto', 
+              gridRow: window.innerWidth > 1024 ? '1 / span 2' : 'auto',
               position: 'relative',
               overflow: 'hidden'
             }}
@@ -76,9 +80,10 @@ const Amenities: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, delay: 0.2 }}
+            className="amenity-item-wide"
             style={{ 
-              gridColumn: '6 / span 7', 
-              gridRow: '1',
+              gridColumn: window.innerWidth > 1024 ? '6 / span 7' : 'auto', 
+              gridRow: window.innerWidth > 1024 ? '1' : 'auto',
               position: 'relative',
               overflow: 'hidden'
             }}
@@ -92,12 +97,13 @@ const Amenities: React.FC = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, delay: 0.4 }}
+            className="amenity-item-small"
             style={{ 
-              gridColumn: '6 / span 4', 
-              gridRow: '2',
+              gridColumn: window.innerWidth > 1024 ? '6 / span 4' : 'auto', 
+              gridRow: window.innerWidth > 1024 ? '2' : 'auto',
               position: 'relative',
               overflow: 'hidden',
-              marginTop: '-50px' // Overlap effect
+              marginTop: window.innerWidth > 1024 ? '-50px' : '0'
             }}
           >
             <AmenityCard item={amenities[2]} />
@@ -107,14 +113,16 @@ const Amenities: React.FC = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
+            className="amenity-branding"
             style={{ 
-              gridColumn: '10 / span 3', 
-              gridRow: '2',
+              gridColumn: window.innerWidth > 1024 ? '10 / span 3' : 'auto', 
+              gridRow: window.innerWidth > 1024 ? '2' : 'auto',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               padding: '40px',
-              borderLeft: '1px solid rgba(176, 163, 109, 0.2)'
+              borderLeft: window.innerWidth > 1024 ? '1px solid rgba(176, 163, 109, 0.2)' : 'none',
+              borderTop: window.innerWidth <= 1024 ? '1px solid rgba(176, 163, 109, 0.2)' : 'none'
             }}
           >
             <p style={{ fontSize: '0.9rem', opacity: 0.6, fontStyle: 'italic' }}>
@@ -157,7 +165,7 @@ const Amenities: React.FC = () => {
   );
 };
 
-const AmenityCard: React.FC<{ item: any }> = ({ item }) => (
+const AmenityCard: React.FC<{ item: Amenity }> = ({ item }) => (
   <motion.div 
     whileHover="hover"
     style={{ width: '100%', height: '100%', position: 'relative', cursor: 'pointer' }}
@@ -166,7 +174,7 @@ const AmenityCard: React.FC<{ item: any }> = ({ item }) => (
       variants={{
         hover: { scale: 1.1 }
       }}
-      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
       src={item.image} 
       alt={item.title} 
       style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.65 }} 

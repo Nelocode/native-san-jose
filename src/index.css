@@ -18,6 +18,18 @@
   --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@media (max-width: 1024px) {
+  :root {
+    --section-padding: 120px 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 80px 5%;
+  }
+}
+
 
 * {
   margin: 0;
@@ -162,5 +174,138 @@ h1, h2, h3, h4, h5 {
 
 ::-webkit-scrollbar-thumb {
   background: var(--native-gold);
+}
+
+/* Responsive Grid Utilities */
+.cinema-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(400px, auto);
+  gap: 30px;
+}
+
+@media (max-width: 1024px) {
+  .cinema-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cinema-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 350px;
+  }
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 60px;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .location-grid {
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+}
+
+.location-text {
+  grid-column: 1 / span 5;
+  z-index: 2;
+}
+
+@media (max-width: 1024px) {
+  .location-text {
+    grid-column: 1 / -1;
+  }
+}
+
+.location-map-container {
+  grid-column: 7 / span 6;
+  position: relative;
+  height: 700px;
+}
+
+@media (max-width: 1024px) {
+  .location-map-container {
+    grid-column: 1 / -1;
+    height: 500px;
+  }
+}
+
+.map-visual {
+  width: 100%;
+  height: 100%;
+  background: var(--native-deep);
+  border: 1px solid rgba(176, 164, 109, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-marker {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+
+.marker-label {
+  display: block;
+  margin-top: 15px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--native-gold);
+  text-shadow: 0 0 20px rgba(176, 164, 109, 0.5);
+}
+
+.map-ui-bottom {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-accent);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  opacity: 0.4;
+}
+
+.map-info-card {
+  position: absolute;
+  bottom: 10%;
+  left: -10%;
+  padding: 40px;
+  width: 320px;
+  z-index: 10;
+}
+
+@media (max-width: 1024px) {
+  .map-info-card {
+    left: 5%;
+    bottom: -20px;
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-xl {
+    font-size: 4rem;
+  }
+  .title-lg {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .desktop-nav { display: none !important; }
+  .mobile-toggle { display: flex !important; }
 }
 
