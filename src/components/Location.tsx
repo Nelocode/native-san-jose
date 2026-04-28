@@ -3,24 +3,40 @@ import { motion } from 'framer-motion';
 
 const Location: React.FC = () => {
   const points = [
-    { time: '15 MIN', desc: 'Aeropuerto J.M.C' },
-    { time: '23 MIN', desc: 'Casco Urbano Guarne' },
-    { time: '35 MIN', desc: 'Medellín (Túnel)' }
+    { time: '15 MIN', desc: 'Aeropuerto J.M.C', label: 'INTERNACIONAL' },
+    { time: '23 MIN', desc: 'Casco Urbano Guarne', label: 'COMERCIO' },
+    { time: '35 MIN', desc: 'Medellín (Túnel)', label: 'CIUDAD' }
   ];
 
   return (
-    <section id="ubicacion" style={{ padding: 'var(--section-padding)', backgroundColor: 'var(--native-bg)', position: 'relative' }}>
+    <section id="ubicacion" style={{ padding: 'var(--section-padding)', backgroundColor: 'var(--native-bg)', position: 'relative', overflow: 'hidden' }}>
+      {/* Background Decorative Text */}
+      <div style={{ 
+        position: 'absolute', 
+        top: '10%', 
+        right: '-5%', 
+        fontSize: '20vw', 
+        fontWeight: 900, 
+        color: 'white', 
+        opacity: 0.02, 
+        pointerEvents: 'none',
+        lineHeight: 1,
+        whiteSpace: 'nowrap'
+      }}>
+        LOCATION
+      </div>
+
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '40px' }}>
+        <div className="location-grid">
           
           {/* Text Content */}
-          <div style={{ gridColumn: '1 / span 5', zIndex: 2 }}>
+          <div className="location-text">
             <motion.span 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               className="label-gold"
             >
-              Conectividad
+              Conectividad Estratégica
             </motion.span>
             
             <motion.h2 
@@ -34,117 +50,205 @@ const Location: React.FC = () => {
               lejos del <span className="text-outline">RUIDO</span>
             </motion.h2>
 
-            <div style={{ display: 'grid', gap: '50px' }}>
+            <div style={{ display: 'grid', gap: '40px' }}>
               {points.map((item, i) => (
                 <motion.div 
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.2 }}
-                  style={{ display: 'flex', alignItems: 'baseline', gap: '30px' }}
+                  transition={{ delay: i * 0.1 }}
+                  className="connectivity-item"
                 >
-                  <span style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--native-gold)', fontVariantNumeric: 'tabular-nums' }}>
-                    {item.time.split(' ')[0]}
-                  </span>
-                  <div>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--native-gold)', fontWeight: 700, letterSpacing: '2px', display: 'block' }}>MINUTOS</span>
-                    <span style={{ fontSize: '1rem', opacity: 0.6, fontWeight: 500 }}>{item.desc}</span>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '20px' }}>
+                    <span style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--native-gold)', fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>
+                      {item.time.split(' ')[0]}
+                    </span>
+                    <div>
+                      <span style={{ fontSize: '0.6rem', color: 'var(--native-gold)', fontWeight: 800, letterSpacing: '3px', display: 'block' }}>{item.label}</span>
+                      <span style={{ fontSize: '1.1rem', color: 'var(--native-white)', fontWeight: 300, opacity: 0.8 }}>{item.desc}</span>
+                    </div>
                   </div>
+                  <div style={{ width: '100%', height: '1px', background: 'linear-gradient(90deg, var(--native-gold) 0%, transparent 100%)', opacity: 0.2, marginTop: '15px' }} />
                 </motion.div>
               ))}
             </div>
 
             <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02, x: 10 }}
+              whileTap={{ scale: 0.98 }}
               className="btn-premium" 
-              style={{ marginTop: '80px' }}
+              style={{ marginTop: '60px' }}
             >
-              Explorar Mapa
+              Ver Mapa Interactivo
             </motion.button>
           </div>
 
           {/* Map Visualization Area */}
-          <div style={{ gridColumn: '7 / span 6', position: 'relative', height: '800px' }}>
+          <div className="location-map-container">
             <motion.div
-              initial={{ opacity: 0, scale: 1.1 }}
+              initial={{ opacity: 0, scale: 1.05 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.5 }}
-              style={{ 
-                width: '100%', 
-                height: '100%', 
-                backgroundColor: 'var(--native-forest)',
-                border: '1px solid rgba(176, 164, 109, 0.2)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}
+              className="map-visual"
             >
-              {/* Stylized Map Grid Overlay */}
+              {/* Cinematic Background */}
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                backgroundImage: 'radial-gradient(var(--native-gold) 1px, transparent 1px)',
-                backgroundSize: '40px 40px',
-                opacity: 0.1
+                background: 'radial-gradient(circle at center, var(--native-forest) 0%, var(--native-bg) 100%)',
+                opacity: 0.8
               }}></div>
 
-              {/* Central Marker */}
+              {/* Topographic Grid */}
               <div style={{
                 position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                textAlign: 'center'
-              }}>
+                inset: 0,
+                backgroundImage: 'linear-gradient(rgba(176, 164, 109, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(176, 164, 109, 0.05) 1px, transparent 1px)',
+                backgroundSize: '60px 60px'
+              }}></div>
+
+              {/* Pulsing Circles */}
+              {[1, 2, 3].map((ring) => (
                 <motion.div
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 3, repeat: Infinity }}
+                  key={ring}
+                  animate={{ scale: [1, 1.5, 1], opacity: [0.1, 0.3, 0.1] }}
+                  transition={{ duration: 4, delay: ring, repeat: Infinity }}
                   style={{
-                    width: '100px',
-                    height: '100px',
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: `${ring * 200}px`,
+                    height: `${ring * 200}px`,
                     border: '1px solid var(--native-gold)',
                     borderRadius: '50%',
-                    margin: '0 auto',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
+                    pointerEvents: 'none'
                   }}
-                >
-                  <div style={{ width: '10px', height: '10px', backgroundColor: 'var(--native-gold)', borderRadius: '50%' }}></div>
-                </motion.div>
-                <span style={{ display: 'block', marginTop: '20px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '4px', color: 'var(--native-gold)' }}>NATIVE</span>
+                />
+              ))}
+
+              {/* Central Marker */}
+              <div className="map-marker">
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    background: 'var(--native-gold)',
+                    clipPath: 'polygon(50% 100%, 0% 0%, 100% 0%)',
+                    margin: '0 auto'
+                  }}
+                />
+                <span className="marker-label">NATIVE</span>
               </div>
 
-              {/* Decorative Coordinates */}
-              <div style={{ position: 'absolute', bottom: '40px', left: '40px', fontFamily: 'monospace', fontSize: '0.7rem', opacity: 0.3 }}>
-                6° 17' 24" N / 75° 26' 38" W
+              {/* Map UI Elements */}
+              <div className="map-ui-bottom">
+                <div className="coord">6° 17' 24" N / 75° 26' 38" W</div>
+                <div className="alt">ALT. 2.150 MSNM</div>
               </div>
             </motion.div>
 
             {/* Floating Info Card */}
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="glass-panel"
-              style={{
-                position: 'absolute',
-                top: '10%',
-                right: '-5%',
-                padding: '40px',
-                width: '300px',
-                zIndex: 3
-              }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8 }}
+              className="glass-panel map-info-card"
             >
-              <h4 style={{ color: 'var(--native-gold)', marginBottom: '15px', fontSize: '0.9rem' }}>UBICACIÓN PRIVILEGIADA</h4>
-              <p style={{ fontSize: '0.8rem', opacity: 0.7, lineHeight: 1.8 }}>
-                Localizado en la Vereda San José, Guarne. Una zona de alta valorización y reserva natural.
+              <h4 style={{ color: 'var(--native-gold)', marginBottom: '15px', fontSize: '0.9rem', letterSpacing: '2px' }}>GUARNE, ANTIOQUIA</h4>
+              <p style={{ fontSize: '0.8rem', opacity: 0.7, lineHeight: 1.8, fontWeight: 300 }}>
+                Un enclave natural estratégicamente ubicado para ofrecer la paz del campo con la agilidad de la ciudad.
               </p>
             </motion.div>
           </div>
 
         </div>
       </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        .location-grid {
+          display: grid;
+          grid-template-columns: repeat(12, 1fr);
+          gap: 60px;
+          align-items: center;
+        }
+        .location-text {
+          grid-column: 1 / span 5;
+          z-index: 2;
+        }
+        .location-map-container {
+          grid-column: 7 / span 6;
+          position: relative;
+          height: 700px;
+        }
+        .map-visual {
+          width: 100%;
+          height: 100%;
+          background: var(--native-deep);
+          border: 1px solid rgba(176, 164, 109, 0.1);
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .map-marker {
+          position: relative;
+          z-index: 5;
+          text-align: center;
+        }
+        .marker-label {
+          display: block;
+          margin-top: 15px;
+          font-size: 0.8rem;
+          font-weight: 900;
+          letter-spacing: 6px;
+          color: var(--native-gold);
+          text-shadow: 0 0 20px rgba(176, 164, 109, 0.5);
+        }
+        .map-ui-bottom {
+          position: absolute;
+          bottom: 30px;
+          left: 30px;
+          right: 30px;
+          display: flex;
+          justify-content: space-between;
+          font-family: var(--font-accent);
+          font-size: 0.6rem;
+          font-weight: 700;
+          letter-spacing: 2px;
+          opacity: 0.4;
+        }
+        .map-info-card {
+          position: absolute;
+          bottom: 10%;
+          left: -10%;
+          padding: 40px;
+          width: 320px;
+          z-index: 10;
+        }
+
+        @media (max-width: 1024px) {
+          .location-grid {
+            grid-template-columns: 1fr;
+            gap: 80px;
+          }
+          .location-text {
+            grid-column: 1 / -1;
+          }
+          .location-map-container {
+            grid-column: 1 / -1;
+            height: 500px;
+          }
+          .map-info-card {
+            left: 5%;
+            bottom: -20px;
+            width: 90%;
+          }
+        }
+      `}} />
     </section>
   );
 };
