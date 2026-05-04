@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
       >
         <div className="logo" style={{ height: '35px', cursor: 'pointer', zIndex: 1001 }}>
           <img 
-            src="/assets/logo.png" 
+            src="/assets/logo.webp" 
             alt="Native San José" 
             style={{ height: '100%', filter: 'brightness(1.2)' }} 
           />

@@ -103,7 +103,7 @@ const Contact: React.FC = () => {
         {/* Premium Footer */}
         <footer className="site-footer">
           <div className="footer-top">
-            <img src="/assets/logo.png" alt="Native" className="footer-logo" />
+            <img src="/assets/logo.webp" alt="Native" className="footer-logo" />
             <div className="footer-nav">
               <a href="#hero">INICIO</a>
               <a href="#proyecto">PROYECTO</a>

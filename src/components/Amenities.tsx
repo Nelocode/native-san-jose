@@ -13,21 +13,21 @@ const amenities: Amenity[] = [
   {
     title: 'COWORKING LAB',
     category: 'CONECTIVIDAD',
-    image: '/assets/coworking.png',
+    image: '/assets/coworking.webp',
     size: 'tall',
     description: 'Espacios diseñados para la productividad en medio del silencio natural.'
   },
   {
     title: 'SPORT COMPLEX',
     category: 'BIENESTAR',
-    image: '/assets/sports.png',
+    image: '/assets/sports.webp',
     size: 'wide',
     description: 'Canchas y gimnasio con vistas panorámicas al bosque nativo.'
   },
   {
     title: 'PORTERÍA NATIVA',
     category: 'EXCLUSIVIDAD',
-    image: '/assets/porteria.png',
+    image: '/assets/porteria.webp',
     size: 'small',
     description: 'Seguridad 24/7 con diseño arquitectónico que honra el entorno.'
   }

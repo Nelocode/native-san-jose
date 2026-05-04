@@ -65,7 +65,7 @@ const Concept: React.FC = () => {
             style={{ position: 'relative' }}
           >
             <img
-              src="/assets/porteria.png"
+              src="/assets/porteria.webp"
               alt="Portería y Ermita"
               style={{ width: '100%', height: '600px', objectFit: 'cover', opacity: 0.8 }}
             />

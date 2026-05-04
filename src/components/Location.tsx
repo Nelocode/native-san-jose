@@ -108,7 +108,7 @@ const Location: React.FC = () => {
       >
         {/* Imagen */}
         <img
-          src="/assets/planta-comercial.png"
+          src="/assets/planta-comercial.webp"
           alt="Planta Comercial Native San José"
           style={{
             width: '100%',
