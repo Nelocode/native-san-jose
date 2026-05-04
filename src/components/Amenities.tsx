@@ -64,12 +64,6 @@ const Amenities: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 1.2 }}
             className="amenity-item-tall"
-            style={{ 
-              gridColumn: window.innerWidth > 1024 ? '1 / span 5' : 'auto', 
-              gridRow: window.innerWidth > 1024 ? '1 / span 2' : 'auto',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
           >
             <AmenityCard item={amenities[0]} />
           </motion.div>
@@ -81,12 +75,6 @@ const Amenities: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 1.2, delay: 0.2 }}
             className="amenity-item-wide"
-            style={{ 
-              gridColumn: window.innerWidth > 1024 ? '6 / span 7' : 'auto', 
-              gridRow: window.innerWidth > 1024 ? '1' : 'auto',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
           >
             <AmenityCard item={amenities[1]} />
           </motion.div>
@@ -98,13 +86,6 @@ const Amenities: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 1.2, delay: 0.4 }}
             className="amenity-item-small"
-            style={{ 
-              gridColumn: window.innerWidth > 1024 ? '6 / span 4' : 'auto', 
-              gridRow: window.innerWidth > 1024 ? '2' : 'auto',
-              position: 'relative',
-              overflow: 'hidden',
-              marginTop: window.innerWidth > 1024 ? '-50px' : '0'
-            }}
           >
             <AmenityCard item={amenities[2]} />
           </motion.div>
@@ -115,14 +96,8 @@ const Amenities: React.FC = () => {
             whileInView={{ opacity: 1 }}
             className="amenity-branding"
             style={{ 
-              gridColumn: window.innerWidth > 1024 ? '10 / span 3' : 'auto', 
-              gridRow: window.innerWidth > 1024 ? '2' : 'auto',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              padding: '40px',
-              borderLeft: window.innerWidth > 1024 ? '1px solid rgba(176, 163, 109, 0.2)' : 'none',
-              borderTop: window.innerWidth <= 1024 ? '1px solid rgba(176, 163, 109, 0.2)' : 'none'
+              borderLeft: undefined,
+              borderTop: undefined
             }}
           >
             <p style={{ fontSize: '0.9rem', opacity: 0.6, fontStyle: 'italic' }}>
@@ -211,7 +186,7 @@ const AmenityCard: React.FC<{ item: Amenity }> = ({ item }) => (
         {item.category}
       </motion.span>
       <h3 style={{ 
-        fontSize: item.size === 'tall' ? '3.5rem' : '2rem', 
+        fontSize: item.size === 'tall' ? 'clamp(2rem, 4vw, 3.5rem)' : 'clamp(1.4rem, 2.5vw, 2rem)', 
         lineHeight: 1, 
         fontWeight: 800,
         textTransform: 'uppercase'
