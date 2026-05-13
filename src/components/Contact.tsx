@@ -101,39 +101,42 @@ const Contact: React.FC = () => {
         </div>
 
         <footer className="site-footer">
+
+          {/* ── Fila superior: logos + nav ── */}
           <div className="footer-top">
-            {/* Logos: Native + TuLote */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flexWrap: 'wrap' }}>
-              <img src="/assets/logo.webp" alt="Native" className="footer-logo" />
-              <div style={{ width: '1px', height: '28px', background: 'rgba(176,164,109,0.2)', flexShrink: 0 }} />
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <span style={{ fontSize: '0.5rem', letterSpacing: '4px', opacity: 0.35, fontWeight: 700, textTransform: 'uppercase' }}>Desarrollado por</span>
+            <div className="footer-logos">
+              <img src="/assets/logo.webp" alt="Native San José" className="footer-logo" />
+              <div className="footer-logo-divider" />
+              <div className="footer-tulote">
+                <span className="footer-by">Desarrollado por</span>
                 <img
                   src="/assets/tulote-logo.png"
                   alt="TuLote Oriente"
-                  style={{ height: '30px', width: 'auto', display: 'block', opacity: 0.65, filter: 'brightness(1.5) saturate(0.3)' }}
+                  className="footer-tulote-img"
                 />
               </div>
             </div>
-            <div className="footer-nav">
+            <nav className="footer-nav">
               <a href="#hero">INICIO</a>
               <a href="#proyecto">PROYECTO</a>
               <a href="#amenidades">AMENIDADES</a>
               <a href="#ubicacion">UBICACIÓN</a>
-            </div>
+            </nav>
           </div>
+
+          {/* ── Fila inferior: copyright + crédito + ubicación ── */}
           <div className="footer-bottom">
-            <span className="copyright">NATIVE SAN JOSÉ © 2026 · DISEÑO &amp; NATURALEZA</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', opacity: 0.35, fontSize: '0.5rem', fontWeight: 700, letterSpacing: '2px' }}>
-              <span>Creado con ❤️ por</span>
-              <a href="https://www.contextoarquitectura.com/" target="_blank" rel="noopener noreferrer"
-                style={{ color: 'var(--native-gold)', textDecoration: 'none', letterSpacing: '2px', fontWeight: 800, opacity: 1 }}>
+            <span>NATIVE SAN JOSÉ © 2026 · DISEÑO &amp; NATURALEZA</span>
+            <span className="footer-credit">
+              Creado con ❤️ por{' '}
+              <a href="https://www.contextoarquitectura.com/" target="_blank" rel="noopener noreferrer">
                 CNTXT
               </a>
-              <span>en Medellín</span>
-            </div>
-            <span className="location-tag">GUARNE, ANTIOQUIA · COLOMBIA</span>
+              {' '}en Medellín
+            </span>
+            <span>GUARNE, ANTIOQUIA · COLOMBIA</span>
           </div>
+
         </footer>
       </div>
 
@@ -222,29 +225,76 @@ const Contact: React.FC = () => {
           width: 100%;
         }
 
-        /* Footer Styles */
+        /* ── Footer ── */
         .site-footer {
-          margin-top: 180px;
-          padding: 80px 0 40px;
-          border-top: 1px solid rgba(176, 164, 109, 0.1);
+          margin-top: 60px;
+          padding: 48px 0 32px;
+          border-top: 1px solid rgba(176,164,109,0.12);
         }
+
+        /* Fila superior */
         .footer-top {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 60px;
+          gap: 32px;
+          flex-wrap: wrap;
+          margin-bottom: 32px;
+        }
+
+        /* Grupo de logos */
+        .footer-logos {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          flex-shrink: 0;
         }
         .footer-logo {
-          height: 35px;
-          opacity: 0.8;
+          height: 32px;
+          width: auto;
+          display: block;
+          opacity: 0.85;
           filter: brightness(1.2);
+          flex-shrink: 0;
         }
+        .footer-logo-divider {
+          width: 1px;
+          height: 26px;
+          background: rgba(176,164,109,0.25);
+          flex-shrink: 0;
+        }
+        .footer-tulote {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          flex-shrink: 0;
+        }
+        .footer-by {
+          font-size: 0.48rem;
+          letter-spacing: 4px;
+          text-transform: uppercase;
+          font-weight: 700;
+          opacity: 0.5;
+          color: var(--native-gold);
+        }
+        .footer-tulote-img {
+          height: 28px;
+          width: auto;
+          display: block;
+          flex-shrink: 0;
+          /* Logo crema claro → aparece bien sobre fondo oscuro */
+          filter: brightness(6) saturate(0);
+          opacity: 0.7;
+        }
+
+        /* Navegación */
         .footer-nav {
           display: flex;
-          gap: 40px;
+          gap: 36px;
+          flex-wrap: wrap;
         }
         .footer-nav a {
-          font-size: 0.6rem;
+          font-size: 0.58rem;
           font-weight: 800;
           letter-spacing: 3px;
           color: white;
@@ -256,14 +306,38 @@ const Contact: React.FC = () => {
           opacity: 1;
           color: var(--native-gold);
         }
+
+        /* Fila inferior */
         .footer-bottom {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          font-size: 0.55rem;
+          gap: 16px;
+          flex-wrap: wrap;
+          font-size: 0.52rem;
           font-weight: 700;
-          letter-spacing: 3px;
-          opacity: 0.2;
+          letter-spacing: 2px;
+          opacity: 0.45;
+          text-transform: uppercase;
+        }
+        .footer-credit {
+          opacity: 0.85;
+          font-size: 0.58rem;
+          letter-spacing: 1.5px;
+          text-transform: none;
+          font-weight: 500;
+          font-family: var(--font-accent);
+        }
+        .footer-credit a {
+          color: var(--native-gold);
+          text-decoration: none;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          font-family: var(--font-main);
+        }
+        .footer-credit a:hover {
+          opacity: 0.8;
         }
 
         @media (max-width: 1024px) {
