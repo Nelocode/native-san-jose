@@ -121,6 +121,7 @@ const Contact: React.FC = () => {
               <a href="#proyecto">PROYECTO</a>
               <a href="#amenidades">AMENIDADES</a>
               <a href="#ubicacion">UBICACIÓN</a>
+              <a href="#nosotros">NOSOTROS</a>
             </nav>
           </div>
 

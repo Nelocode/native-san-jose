@@ -38,9 +38,9 @@ function App() {
       <Navbar />
       <Hero />
       <Concept />
-      <Nosotros />
       <Amenities />
       <Location />
+      <Nosotros />
       <Contact />
     </main>
   );
