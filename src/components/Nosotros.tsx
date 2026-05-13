@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Nosotros: React.FC = () => {
@@ -13,6 +13,15 @@ const Nosotros: React.FC = () => {
     setIsModalOpen(false);
     document.body.style.overflow = 'unset';
   };
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeModal();
+    };
+    if (isModalOpen) window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [isModalOpen]);
 
   const values = [
     { title: 'CONFIANZA', desc: 'Respaldo legal y titulación 100% al día.' },
@@ -53,6 +62,34 @@ const Nosotros: React.FC = () => {
 
         <div className="container">
 
+          {/* ── TOP STRIP: "Desarrollado por" badge ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            style={{ marginBottom: '60px' }}
+          >
+            <div className="nosotros-partner-badge">
+              <span style={{
+                fontSize: '0.6rem',
+                letterSpacing: '5px',
+                textTransform: 'uppercase',
+                opacity: 0.45,
+                fontWeight: 700,
+                whiteSpace: 'nowrap',
+              }}>
+                Desarrollado por
+              </span>
+              <div className="nosotros-logo-divider" />
+              <img
+                src="/assets/tulote-logo.png"
+                alt="TuLote Oriente"
+                className="nosotros-logo-img"
+              />
+            </div>
+          </motion.div>
+
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -81,22 +118,14 @@ const Nosotros: React.FC = () => {
           </motion.div>
 
           {/* Values grid + quote block */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '40px',
-            marginBottom: '80px',
-            alignItems: 'start',
-          }}
-            className="nosotros-grid"
-          >
-            {/* Values */}
+          <div className="nosotros-grid" style={{ marginBottom: '80px' }}>
+            {/* Values 2x2 */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1 }}
-              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}
+              className="nosotros-values"
             >
               {values.map((v, i) => (
                 <motion.div
@@ -105,8 +134,7 @@ const Nosotros: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: i * 0.1 }}
-                  className="glass-panel"
-                  style={{ padding: '36px 30px' }}
+                  className="glass-panel nosotros-value-card"
                 >
                   <h3 style={{
                     fontSize: '0.75rem',
@@ -131,12 +159,9 @@ const Nosotros: React.FC = () => {
               style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}
             >
               {/* Big quote */}
-              <div style={{
-                borderLeft: '3px solid var(--native-gold)',
-                paddingLeft: '30px',
-              }}>
+              <div style={{ borderLeft: '3px solid var(--native-gold)', paddingLeft: '30px' }}>
                 <p style={{
-                  fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
+                  fontSize: 'clamp(1rem, 2vw, 1.4rem)',
                   fontWeight: 700,
                   lineHeight: 1.5,
                   letterSpacing: '-0.02em',
@@ -176,13 +201,9 @@ const Nosotros: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', alignItems: 'center' }}
+            className="nosotros-cta"
           >
-            <button
-              onClick={openModal}
-              className="btn-premium"
-              style={{ textDecoration: 'none' }}
-            >
+            <button onClick={openModal} className="btn-premium">
               VER MÁS
             </button>
             <a
@@ -197,20 +218,49 @@ const Nosotros: React.FC = () => {
 
         </div>
 
-        {/* Decorative vertical text */}
-        <div style={{
-          position: 'absolute',
-          right: '2%',
-          top: '50%',
-          transform: 'rotate(90deg) translateY(-50%)',
-          fontSize: '0.7rem',
-          letterSpacing: '10px',
-          opacity: 0.12,
-          fontWeight: 700,
-          whiteSpace: 'nowrap',
-        }}>
+        {/* Decorative vertical text — hidden on mobile */}
+        <div className="nosotros-deco-text">
           ORIENTE ANTIOQUEÑO — COLOMBIA
         </div>
+
+        {/* ── CREATIVE BRANDING STRIP at the bottom ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, delay: 0.5 }}
+          className="nosotros-brand-strip"
+        >
+          <div className="nosotros-brand-inner">
+            <div className="nosotros-brand-line" />
+            <div className="nosotros-brand-content">
+              <span style={{
+                fontSize: '0.6rem',
+                letterSpacing: '5px',
+                textTransform: 'uppercase',
+                opacity: 0.35,
+                fontWeight: 700,
+              }}>
+                Con el respaldo de
+              </span>
+              <img
+                src="/assets/tulote-logo.png"
+                alt="TuLote Oriente"
+                style={{ height: '52px', opacity: 0.75, filter: 'brightness(1.4) saturate(0.4)' }}
+              />
+              <span style={{
+                fontSize: '0.6rem',
+                letterSpacing: '5px',
+                textTransform: 'uppercase',
+                opacity: 0.35,
+                fontWeight: 700,
+              }}>
+                Oriente Antioqueño
+              </span>
+            </div>
+            <div className="nosotros-brand-line" />
+          </div>
+        </motion.div>
       </section>
 
       {/* ── MODAL ── */}
@@ -233,152 +283,183 @@ const Nosotros: React.FC = () => {
               }}
             />
 
-            {/* Modal panel */}
-            <motion.div
-              initial={{ opacity: 0, y: 60, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 40, scale: 0.96 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            {/* Modal scroll wrapper — full screen, centered */}
+            <div
               style={{
                 position: 'fixed',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: 'min(900px, 94vw)',
-                maxHeight: '88vh',
-                overflowY: 'auto',
-                backgroundColor: 'var(--native-forest)',
-                border: '1px solid rgba(176, 164, 109, 0.2)',
+                inset: 0,
                 zIndex: 2001,
-                padding: 'clamp(36px, 6vw, 72px)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                padding: 'clamp(16px, 4vw, 40px)',
+                overflowY: 'auto',
               }}
+              onClick={closeModal}
             >
-              {/* Close button */}
-              <button
-                onClick={closeModal}
+              {/* Modal panel */}
+              <motion.div
+                initial={{ opacity: 0, y: 60, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 40, scale: 0.96 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                onClick={(e) => e.stopPropagation()}
                 style={{
-                  position: 'sticky',
-                  top: 0,
-                  float: 'right',
-                  background: 'none',
-                  border: '1px solid rgba(176, 164, 109, 0.3)',
-                  color: 'var(--native-gold)',
-                  cursor: 'pointer',
-                  fontSize: '1rem',
-                  width: '44px',
-                  height: '44px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 700,
-                  zIndex: 10,
-                  marginBottom: '16px',
+                  width: '100%',
+                  maxWidth: '900px',
+                  backgroundColor: 'var(--native-forest)',
+                  border: '1px solid rgba(176, 164, 109, 0.2)',
+                  padding: 'clamp(28px, 6vw, 72px)',
+                  position: 'relative',
+                  margin: 'auto 0',
+                  marginTop: 'clamp(16px, 4vw, 40px)',
+                  marginBottom: 'clamp(16px, 4vw, 40px)',
                 }}
               >
-                ✕
-              </button>
-
-              {/* Modal header */}
-              <span className="label-gold" style={{ display: 'block', marginBottom: '10px' }}>TuLote Oriente</span>
-              <h2 style={{
-                fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                fontWeight: 800,
-                letterSpacing: '-0.04em',
-                textTransform: 'uppercase',
-                marginBottom: '16px',
-                lineHeight: 1,
-                color: 'var(--native-white)',
-              }}>
-                Nuestra Historia
-              </h2>
-              <div style={{ width: '60px', height: '2px', backgroundColor: 'var(--native-gold)', marginBottom: '36px' }} />
-
-              {/* About paragraph */}
-              <p style={{ opacity: 0.75, fontSize: '0.95rem', lineHeight: 1.9, fontFamily: 'var(--font-accent)', marginBottom: '48px' }}>
-                TuLote Oriente es una empresa colombiana de finca raíz y loteo con más de 5 años
-                de experiencia. Nos diferenciamos porque no solo comercializamos propiedades —
-                diseñamos y desarrollamos nuestros propios proyectos, siendo los únicos dueños
-                de cada uno. Trabajamos con tecnología, transparencia y un profundo respeto por
-                la naturaleza del Oriente Antioqueño.
-              </p>
-
-              {/* Misión y Visión */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '48px' }}
-                className="nosotros-modal-mv">
-                {[
-                  {
-                    label: 'MISIÓN',
-                    text: 'Brindar oportunidades para conectar con la naturaleza a través de lotes de alta calidad, con seguridad jurídica y alto potencial de inversión, respaldados por tecnología y un servicio transparente.',
-                  },
-                  {
-                    label: 'VISIÓN',
-                    text: 'Ser la inmobiliaria de lotes más grande del Oriente Antioqueño en 5 años, reconocida por su innovación, desarrollo sostenible y compromiso con las comunidades.',
-                  },
-                ].map((item) => (
-                  <div key={item.label} className="glass-panel" style={{ padding: '36px 28px' }}>
-                    <h3 style={{ fontSize: '0.7rem', color: 'var(--native-gold)', letterSpacing: '5px', fontWeight: 800, marginBottom: '14px' }}>
-                      {item.label}
-                    </h3>
-                    <p style={{ opacity: 0.7, fontSize: '0.88rem', lineHeight: 1.8 }}>{item.text}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Proyectos */}
-              <h3 style={{ fontSize: '1rem', fontWeight: 800, letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '24px' }}>
-                Nuestros Proyectos
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '48px' }}>
-                {projects.map((p, i) => (
-                  <div key={i} style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '16px',
-                    padding: '24px 28px',
-                    borderBottom: '1px solid rgba(176, 164, 109, 0.1)',
+                {/* Close button */}
+                <button
+                  onClick={closeModal}
+                  aria-label="Cerrar"
+                  style={{
+                    position: 'absolute',
+                    top: 'clamp(16px, 3vw, 32px)',
+                    right: 'clamp(16px, 3vw, 32px)',
+                    background: 'none',
+                    border: '1px solid rgba(176, 164, 109, 0.3)',
+                    color: 'var(--native-gold)',
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                    width: '44px',
+                    height: '44px',
+                    display: 'flex',
                     alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 700,
+                    zIndex: 10,
                   }}
-                    className="nosotros-project-row">
-                    <div>
-                      <p style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--native-gold)', marginBottom: '4px' }}>{p.name}</p>
-                      <p style={{ opacity: 0.5, fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase' }}>{p.location}</p>
-                    </div>
-                    <p style={{ opacity: 0.65, fontSize: '0.85rem', lineHeight: 1.6 }}>{p.detail}</p>
-                  </div>
-                ))}
-              </div>
+                >
+                  ✕
+                </button>
 
-              {/* Contact info */}
-              <div className="glass-panel" style={{ padding: '36px 32px', marginBottom: '36px' }}>
-                <h3 style={{ fontSize: '0.7rem', letterSpacing: '5px', fontWeight: 800, color: 'var(--native-gold)', marginBottom: '20px' }}>
-                  CONTACTO DIRECTO
-                </h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 48px' }}>
+                {/* Modal header with TuLote logo */}
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '24px', marginBottom: '16px', paddingRight: '60px', flexWrap: 'wrap' }}>
+                  <div style={{ flex: 1 }}>
+                    <span className="label-gold" style={{ display: 'block', marginBottom: '10px' }}>TuLote Oriente</span>
+                    <h2 style={{
+                      fontSize: 'clamp(1.8rem, 5vw, 3.5rem)',
+                      fontWeight: 800,
+                      letterSpacing: '-0.04em',
+                      textTransform: 'uppercase',
+                      marginBottom: '0',
+                      lineHeight: 1,
+                      color: 'var(--native-white)',
+                    }}>
+                      Nuestra Historia
+                    </h2>
+                  </div>
+                  {/* Logo in modal header */}
+                  <div style={{
+                    background: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(176,164,109,0.15)',
+                    padding: '16px 20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexShrink: 0,
+                  }}>
+                    <img
+                      src="/assets/tulote-logo.png"
+                      alt="TuLote Oriente"
+                      style={{ height: '48px', filter: 'brightness(1.3) saturate(0.5)', opacity: 0.9 }}
+                    />
+                  </div>
+                </div>
+                <div style={{ width: '60px', height: '2px', backgroundColor: 'var(--native-gold)', marginBottom: '36px' }} />
+
+                {/* About paragraph */}
+                <p style={{ opacity: 0.75, fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)', lineHeight: 1.9, fontFamily: 'var(--font-accent)', marginBottom: '48px' }}>
+                  TuLote Oriente es una empresa colombiana de finca raíz y loteo con más de 5 años
+                  de experiencia. Nos diferenciamos porque no solo comercializamos propiedades —
+                  diseñamos y desarrollamos nuestros propios proyectos, siendo los únicos dueños
+                  de cada uno. Trabajamos con tecnología, transparencia y un profundo respeto por
+                  la naturaleza del Oriente Antioqueño.
+                </p>
+
+                {/* Misión y Visión */}
+                <div className="nosotros-modal-mv" style={{ marginBottom: '48px' }}>
                   {[
-                    { label: 'WhatsApp', value: '+57 316 166 5347' },
-                    { label: 'Correo', value: 'servicioalclientetulote@gmail.com' },
-                    { label: 'Instagram', value: '@native_oriente' },
-                    { label: 'Web', value: 'tulote.com.co' },
-                  ].map((c) => (
-                    <div key={c.label}>
-                      <p style={{ fontSize: '0.65rem', letterSpacing: '3px', opacity: 0.5, marginBottom: '4px', textTransform: 'uppercase' }}>{c.label}</p>
-                      <p style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--native-sand)' }}>{c.value}</p>
+                    {
+                      label: 'MISIÓN',
+                      text: 'Brindar oportunidades para conectar con la naturaleza a través de lotes de alta calidad, con seguridad jurídica y alto potencial de inversión, respaldados por tecnología y un servicio transparente.',
+                    },
+                    {
+                      label: 'VISIÓN',
+                      text: 'Ser la inmobiliaria de lotes más grande del Oriente Antioqueño en 5 años, reconocida por su innovación, desarrollo sostenible y compromiso con las comunidades.',
+                    },
+                  ].map((item) => (
+                    <div key={item.label} className="glass-panel" style={{ padding: 'clamp(24px, 4vw, 36px) clamp(20px, 3vw, 28px)' }}>
+                      <h3 style={{ fontSize: '0.7rem', color: 'var(--native-gold)', letterSpacing: '5px', fontWeight: 800, marginBottom: '14px' }}>
+                        {item.label}
+                      </h3>
+                      <p style={{ opacity: 0.7, fontSize: 'clamp(0.82rem, 1.4vw, 0.88rem)', lineHeight: 1.8 }}>{item.text}</p>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Modal CTA */}
-              <a
-                href="https://tulote.com.co"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-premium"
-                style={{ display: 'inline-block' }}
-              >
-                IR A TULOTE.COM.CO ↗
-              </a>
-            </motion.div>
+                {/* Proyectos */}
+                <h3 style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '20px' }}>
+                  Nuestros Proyectos
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '48px' }}>
+                  {projects.map((p, i) => (
+                    <div
+                      key={i}
+                      className="nosotros-project-row"
+                      style={{
+                        padding: 'clamp(16px, 2.5vw, 24px) clamp(16px, 3vw, 28px)',
+                        borderBottom: '1px solid rgba(176, 164, 109, 0.1)',
+                      }}
+                    >
+                      <div>
+                        <p style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--native-gold)', marginBottom: '4px' }}>{p.name}</p>
+                        <p style={{ opacity: 0.5, fontSize: '0.7rem', letterSpacing: '2px', textTransform: 'uppercase' }}>{p.location}</p>
+                      </div>
+                      <p style={{ opacity: 0.65, fontSize: '0.85rem', lineHeight: 1.6 }}>{p.detail}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Contact info */}
+                <div className="glass-panel" style={{ padding: 'clamp(24px, 4vw, 36px) clamp(20px, 3vw, 32px)', marginBottom: '36px' }}>
+                  <h3 style={{ fontSize: '0.7rem', letterSpacing: '5px', fontWeight: 800, color: 'var(--native-gold)', marginBottom: '20px' }}>
+                    CONTACTO DIRECTO
+                  </h3>
+                  <div className="nosotros-contact-grid">
+                    {[
+                      { label: 'WhatsApp', value: '+57 316 166 5347' },
+                      { label: 'Correo', value: 'servicioalclientetulote@gmail.com' },
+                      { label: 'Instagram', value: '@native_oriente' },
+                      { label: 'Web', value: 'tulote.com.co' },
+                    ].map((c) => (
+                      <div key={c.label}>
+                        <p style={{ fontSize: '0.65rem', letterSpacing: '3px', opacity: 0.5, marginBottom: '4px', textTransform: 'uppercase' }}>{c.label}</p>
+                        <p style={{ fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', fontWeight: 600, color: 'var(--native-sand)', wordBreak: 'break-all' }}>{c.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Modal CTA */}
+                <a
+                  href="https://tulote.com.co"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-premium"
+                  style={{ display: 'inline-block' }}
+                >
+                  IR A TULOTE.COM.CO ↗
+                </a>
+              </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>

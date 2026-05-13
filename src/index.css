@@ -447,25 +447,152 @@ h1, h2, h3, h4, h5 {
 
 /* ── NOSOTROS SECTION ── */
 .nosotros-grid {
+  display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
 }
+.nosotros-values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.nosotros-value-card {
+  padding: 36px 30px;
+}
+.nosotros-cta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.nosotros-deco-text {
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: rotate(90deg) translateY(-50%);
+  font-size: 0.7rem;
+  letter-spacing: 10px;
+  opacity: 0.12;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Partner badge (top of section) */
+.nosotros-partner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(176, 164, 109, 0.06);
+  border: 1px solid rgba(176, 164, 109, 0.15);
+  padding: 14px 28px;
+  backdrop-filter: blur(10px);
+}
+.nosotros-logo-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(176, 164, 109, 0.25);
+  flex-shrink: 0;
+}
+.nosotros-logo-img {
+  height: 36px;
+  opacity: 0.75;
+  filter: brightness(1.4) saturate(0.3);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.nosotros-logo-img:hover {
+  opacity: 1;
+  filter: brightness(1.6) saturate(0.5);
+}
+
+/* Brand strip (bottom of section) */
+.nosotros-brand-strip {
+  margin-top: 100px;
+  padding: 0 8%;
+}
+.nosotros-brand-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nosotros-brand-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(176,164,109,0.2), transparent);
+}
+.nosotros-brand-content {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-shrink: 0;
+}
+
+/* ── NOSOTROS MODAL ── */
+.nosotros-modal-mv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.nosotros-project-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+.nosotros-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 32px;
+}
+
+/* Tablet (1024px) */
 @media (max-width: 1024px) {
   .nosotros-grid {
     grid-template-columns: 1fr;
     gap: 48px;
   }
+  .nosotros-deco-text {
+    display: none;
+  }
 }
 
-/* ── NOSOTROS MODAL ── */
-.nosotros-modal-mv {
-  grid-template-columns: 1fr 1fr;
-}
+/* Mobile (640px) */
 @media (max-width: 640px) {
+  .nosotros-values {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .nosotros-value-card {
+    padding: 24px 20px;
+  }
   .nosotros-modal-mv {
     grid-template-columns: 1fr;
   }
   .nosotros-project-row {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .nosotros-contact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 16px;
+  }
+}
+
+/* Very small screens (400px) */
+@media (max-width: 400px) {
+  .nosotros-values {
+    grid-template-columns: 1fr;
+  }
+  .nosotros-contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .nosotros-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nosotros-cta .btn-premium,
+  .nosotros-cta .btn-outline {
+    text-align: center;
   }
 }
 

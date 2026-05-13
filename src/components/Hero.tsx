@@ -62,7 +62,7 @@ const Hero: React.FC = () => {
             playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5 }}
           >
-            <source src="/assets/trailer.mp4" type="video/mp4" />
+            <source src="/assets/trailer_v2.mp4" type="video/mp4" />
           </video>
           <div style={{
             position: 'absolute',
