@@ -266,6 +266,7 @@ const Contact: React.FC = () => {
         .footer-tulote {
           display: flex;
           flex-direction: column;
+          align-items: flex-start;
           gap: 5px;
           flex-shrink: 0;
         }
