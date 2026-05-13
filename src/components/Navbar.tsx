@@ -25,6 +25,7 @@ const Navbar: React.FC = () => {
   const navItems = [
     { name: 'Inicio', id: 'hero' },
     { name: 'Proyecto', id: 'proyecto' },
+    { name: 'Nosotros', id: 'nosotros' },
     { name: 'Amenidades', id: 'amenidades' },
     { name: 'Ubicación', id: 'ubicacion' }
   ];

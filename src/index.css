@@ -445,3 +445,27 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* ── NOSOTROS SECTION ── */
+.nosotros-grid {
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 1024px) {
+  .nosotros-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/* ── NOSOTROS MODAL ── */
+.nosotros-modal-mv {
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 640px) {
+  .nosotros-modal-mv {
+    grid-template-columns: 1fr;
+  }
+  .nosotros-project-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+

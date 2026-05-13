@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Concept from './components/Concept';
 import Amenities from './components/Amenities';
 import Location from './components/Location';
+import Nosotros from './components/Nosotros';
 import Contact from './components/Contact';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       <Navbar />
       <Hero />
       <Concept />
+      <Nosotros />
       <Amenities />
       <Location />
       <Contact />
