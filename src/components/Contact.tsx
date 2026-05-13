@@ -100,10 +100,17 @@ const Contact: React.FC = () => {
 
         </div>
 
-        {/* Premium Footer */}
         <footer className="site-footer">
           <div className="footer-top">
-            <img src="/assets/logo.webp" alt="Native" className="footer-logo" />
+            {/* Logos: Native + TuLote */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flexWrap: 'wrap' }}>
+              <img src="/assets/logo.webp" alt="Native" className="footer-logo" />
+              <div style={{ width: '1px', height: '28px', background: 'rgba(176,164,109,0.2)' }} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <span style={{ fontSize: '0.5rem', letterSpacing: '4px', opacity: 0.35, fontWeight: 700, textTransform: 'uppercase' }}>Desarrollado por</span>
+                <img src="/assets/tulote-logo.png" alt="TuLote Oriente" style={{ height: '28px', opacity: 0.6, filter: 'brightness(1.4) saturate(0.3)' }} />
+              </div>
+            </div>
             <div className="footer-nav">
               <a href="#hero">INICIO</a>
               <a href="#proyecto">PROYECTO</a>
@@ -112,7 +119,7 @@ const Contact: React.FC = () => {
             </div>
           </div>
           <div className="footer-bottom">
-            <span className="copyright">NATIVE SAN JOSÉ © 2026 · DISEÑO & NATURALEZA</span>
+            <span className="copyright">NATIVE SAN JOSÉ © 2026 · DISEÑO &amp; NATURALEZA</span>
             <span className="location-tag">GUARNE, ANTIOQUIA · COLOMBIA</span>
           </div>
         </footer>
