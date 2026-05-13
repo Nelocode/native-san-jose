@@ -1,23 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 
 type Phase = 'text' | 'fading' | 'logo';
 
 const Hero: React.FC = () => {
   const [phase, setPhase] = useState<Phase>('text');
+  const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    // Texto se mantiene 3.5s antes de empezar a desaparecer
-    const t1 = setTimeout(() => setPhase('fading'), 3500);
-    // Logo aparece 1.4s después (tiempo que tarda el fade-out)
-    const t2 = setTimeout(() => setPhase('logo'), 3500 + 1400);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
+  // Scroll tracking — solo para el parallax del logo
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+
+  // El logo "se queda atrás" al scrollear: se desplaza más lento que el resto
+  // (opone resistencia al scroll moviéndose en la dirección contraria)
+  const logoParallaxY  = useTransform(scrollYProgress, [0, 1], ['0vh', '28vh']);
+  // El logo se va desvaneciendo al final del recorrido, no al inicio
+  const logoScrollFade = useTransform(scrollYProgress, [0.25, 0.75], [1, 0]);
 
   const easing = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase('fading'), 3500);
+    const t2 = setTimeout(() => setPhase('logo'),   3500 + 1400);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="hero"
       style={{
         height: '100vh',
@@ -57,16 +69,11 @@ const Hero: React.FC = () => {
         </motion.span>
 
         {/* ── Área del título ──
-            El h1 SIEMPRE ocupa su espacio en el flujo (evita que el logo
-            se encabalgue sobre el subtext). Solo cambia su opacidad.
-            El logo se superpone encima con position absolute. ── */}
-        <div style={{
-          position: 'relative',
-          textAlign: 'center',
-          margin: '28px 0 44px',
-        }}>
+            h1 permanece en flujo normal (invisible cuando opacity=0)
+            para que el subtext no suba. El logo flota encima. ── */}
+        <div style={{ position: 'relative', textAlign: 'center', margin: '28px 0 44px' }}>
 
-          {/* H1: en flujo normal → mantiene el espacio siempre */}
+          {/* TEXTO — flujo normal, solo cambia opacidad */}
           <motion.h1
             className="title-xl"
             animate={{ opacity: phase === 'text' ? 1 : 0 }}
@@ -76,7 +83,6 @@ const Hero: React.FC = () => {
               flexDirection: 'column',
               alignItems: 'center',
               lineHeight: 0.85,
-              // Cuando opacity=0 el elemento sigue tomando espacio → no hay colapso
               pointerEvents: 'none',
             }}
           >
@@ -99,12 +105,12 @@ const Hero: React.FC = () => {
             </motion.span>
           </motion.h1>
 
-          {/* Logo: absolute encima del h1, aparece solo en fase 'logo' */}
+          {/* LOGO — absoluto encima del h1, con parallax al scroll */}
           <AnimatePresence>
             {phase === 'logo' && (
               <motion.div
                 key="logo"
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1.6, ease: easing }}
                 style={{
@@ -114,14 +120,19 @@ const Hero: React.FC = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   pointerEvents: 'none',
+                  // Parallax: el logo se "resiste" al scroll y se desvanece tarde
+                  y: logoParallaxY,
+                  opacity: logoScrollFade,
                 }}
               >
                 <img
                   src="/assets/logo.webp"
                   alt="Native San José"
                   style={{
-                    width: 'clamp(200px, 36vw, 480px)',
-                    filter: 'brightness(1.3)',
+                    // Un poco más pequeño para evitar pixelación
+                    width: 'clamp(160px, 26vw, 360px)',
+                    imageRendering: 'crisp-edges',
+                    filter: 'brightness(1.25)',
                     display: 'block',
                   }}
                 />
