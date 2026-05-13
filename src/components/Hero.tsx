@@ -1,29 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Fases de la animación
-// 0 → texto aparece | 1 → texto desaparece | 2 → logo aparece (y se queda)
-type Phase = 0 | 1 | 2;
-
-const PHASE_TIMINGS = {
-  textHold:     2200,  // ms que el texto se mantiene visible
-  textFadeOut:  600,   // duración del fade-out del texto
-  logoPause:    200,   // pausa entre texto y logo
-};
+type Phase = 'text' | 'fading' | 'logo';
 
 const Hero: React.FC = () => {
-  const [phase, setPhase] = useState<Phase>(0);
+  const [phase, setPhase] = useState<Phase>('text');
 
   useEffect(() => {
-    // Después de mantener el texto → iniciar fade-out
-    const t1 = setTimeout(() => setPhase(1), PHASE_TIMINGS.textHold);
-    // Después del fade-out → mostrar logo
-    const t2 = setTimeout(
-      () => setPhase(2),
-      PHASE_TIMINGS.textHold + PHASE_TIMINGS.textFadeOut + PHASE_TIMINGS.logoPause
-    );
+    // Texto se mantiene 3.5s antes de empezar a desaparecer
+    const t1 = setTimeout(() => setPhase('fading'), 3500);
+    // Logo aparece 1.4s después (tiempo que tarda el fade-out)
+    const t2 = setTimeout(() => setPhase('logo'), 3500 + 1400);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
+
+  const easing = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
   return (
     <section
@@ -55,73 +46,75 @@ const Hero: React.FC = () => {
       {/* ── Contenido ── */}
       <div className="container" style={{ position: 'relative', zIndex: 2, padding: '0 8%' }}>
 
-        {/* Label — siempre visible */}
+        {/* Label */}
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
+          transition={{ duration: 1.4, delay: 0.6, ease: easing }}
           className="label-gold"
         >
           Antioquia, Colombia // Native San José
         </motion.span>
 
-        {/* ── Área del título: texto ↔ logo ── */}
+        {/* ── Área del título ──
+            El h1 SIEMPRE ocupa su espacio en el flujo (evita que el logo
+            se encabalgue sobre el subtext). Solo cambia su opacidad.
+            El logo se superpone encima con position absolute. ── */}
         <div style={{
           position: 'relative',
           textAlign: 'center',
-          margin: '24px 0 40px',
-          minHeight: 'clamp(120px, 22vw, 280px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          margin: '28px 0 44px',
         }}>
-          <AnimatePresence mode="wait">
 
-            {/* FASE 0 + 1: Texto NATIVE / SAN JOSÉ */}
-            {phase < 2 && (
-              <motion.div
-                key="text"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: phase === 1 ? 0 : 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6 }}
-                style={{ position: 'absolute', width: '100%' }}
-              >
-                <h1 className="title-xl" style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  lineHeight: 0.85,
-                }}>
-                  <motion.span
-                    initial={{ x: -100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-                    style={{ display: 'block' }}
-                  >
-                    NATIVE
-                  </motion.span>
-                  <motion.span
-                    initial={{ x: 100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-                    className="text-outline"
-                    style={{ display: 'block' }}
-                  >
-                    SAN JOSÉ
-                  </motion.span>
-                </h1>
-              </motion.div>
-            )}
+          {/* H1: en flujo normal → mantiene el espacio siempre */}
+          <motion.h1
+            className="title-xl"
+            animate={{ opacity: phase === 'text' ? 1 : 0 }}
+            transition={{ duration: 1.4, ease: easing }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              lineHeight: 0.85,
+              // Cuando opacity=0 el elemento sigue tomando espacio → no hay colapso
+              pointerEvents: 'none',
+            }}
+          >
+            <motion.span
+              initial={{ x: -120, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1.4, delay: 0.2, ease: easing }}
+              style={{ display: 'block' }}
+            >
+              NATIVE
+            </motion.span>
+            <motion.span
+              initial={{ x: 120, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1.4, delay: 0.35, ease: easing }}
+              className="text-outline"
+              style={{ display: 'block' }}
+            >
+              SAN JOSÉ
+            </motion.span>
+          </motion.h1>
 
-            {/* FASE 2: Logo */}
-            {phase === 2 && (
+          {/* Logo: absolute encima del h1, aparece solo en fase 'logo' */}
+          <AnimatePresence>
+            {phase === 'logo' && (
               <motion.div
                 key="logo"
-                initial={{ opacity: 0, scale: 0.88 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-                style={{ position: 'absolute', width: '100%', display: 'flex', justifyContent: 'center' }}
+                transition={{ duration: 1.6, ease: easing }}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  pointerEvents: 'none',
+                }}
               >
                 <img
                   src="/assets/logo.webp"
@@ -134,15 +127,14 @@ const Hero: React.FC = () => {
                 />
               </motion.div>
             )}
-
           </AnimatePresence>
         </div>
 
         {/* ── Subtext y CTA — siempre visibles ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
+          transition={{ duration: 1.4, delay: 1.0, ease: easing }}
           className="hero-subtext"
         >
           <p style={{
@@ -173,17 +165,23 @@ const Hero: React.FC = () => {
 
       {/* Scroll indicator */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        transition={{ delay: 2.5, duration: 1.2 }}
         style={{
           position: 'absolute', bottom: '50px',
           left: '50%', transform: 'translateX(-50%)',
-          zIndex: 2, opacity: 0.5, cursor: 'pointer',
+          zIndex: 2, cursor: 'pointer',
         }}
       >
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-        </svg>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+          </svg>
+        </motion.div>
       </motion.div>
     </section>
   );
