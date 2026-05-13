@@ -105,12 +105,15 @@ const Hero: React.FC = () => {
             </motion.span>
           </motion.h1>
 
-          {/* LOGO — absoluto encima del h1, con parallax al scroll */}
+          {/* LOGO — absoluto encima del h1, con parallax al scroll.
+               Dos capas para evitar conflicto entre animate y MotionValue:
+               - Capa exterior: gestiona la animación de entrada (opacity 0→1, scale)
+               - motion.img interior: gestiona y + opacity del scroll vía MotionValues */}
           <AnimatePresence>
             {phase === 'logo' && (
               <motion.div
                 key="logo"
-                initial={{ opacity: 0, scale: 0.92 }}
+                initial={{ opacity: 0, scale: 0.94 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1.6, ease: easing }}
                 style={{
@@ -120,20 +123,18 @@ const Hero: React.FC = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   pointerEvents: 'none',
-                  // Parallax: el logo se "resiste" al scroll y se desvanece tarde
-                  y: logoParallaxY,
-                  opacity: logoScrollFade,
                 }}
               >
-                <img
+                {/* motion.img recibe las MotionValues de scroll sin conflicto */}
+                <motion.img
                   src="/assets/logo.webp"
                   alt="Native San José"
                   style={{
-                    // Un poco más pequeño para evitar pixelación
                     width: 'clamp(160px, 26vw, 360px)',
-                    imageRendering: 'crisp-edges',
                     filter: 'brightness(1.25)',
                     display: 'block',
+                    y: logoParallaxY,
+                    opacity: logoScrollFade,
                   }}
                 />
               </motion.div>
