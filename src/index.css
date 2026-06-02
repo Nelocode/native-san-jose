@@ -596,3 +596,54 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* WhatsApp Bubble */
+.whatsapp-bubble {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+  z-index: 9999;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.whatsapp-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  pointer-events: none;
+}
+
+.whatsapp-svg {
+  color: #fff;
+  display: block;
+}
+
+/* Mobile responsive WhatsApp bubble */
+@media (max-width: 768px) {
+  .whatsapp-bubble {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+  }
+  
+  .whatsapp-pulse {
+    inset: -5px;
+    border-width: 1.5px;
+  }
+  
+  .whatsapp-svg {
+    width: 24px;
+    height: 24px;
+  }
+}

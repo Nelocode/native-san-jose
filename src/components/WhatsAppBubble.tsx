@@ -16,22 +16,7 @@ const WhatsAppBubble: React.FC = () => {
       transition={{ delay: 1.5, duration: 0.6 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      style={{
-        position: 'fixed',
-        bottom: '30px',
-        right: '30px',
-        width: '60px',
-        height: '60px',
-        borderRadius: '50%',
-        backgroundColor: '#25D366',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: '0 8px 30px rgba(37, 211, 102, 0.4)',
-        zIndex: 9999,
-        cursor: 'pointer',
-        textDecoration: 'none',
-      }}
+      className="whatsapp-bubble"
       aria-label="Chatear en WhatsApp"
     >
       {/* Pulse effect */}
@@ -45,13 +30,7 @@ const WhatsAppBubble: React.FC = () => {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        style={{
-          position: 'absolute',
-          inset: -6,
-          borderRadius: '50%',
-          border: '2px solid #25D366',
-          pointerEvents: 'none',
-        }}
+        className="whatsapp-pulse"
       />
       
       {/* SVG Icon */}
@@ -62,7 +41,7 @@ const WhatsAppBubble: React.FC = () => {
         fill="none"
         stroke="currentColor"
         strokeWidth="0"
-        style={{ color: '#fff' }}
+        className="whatsapp-svg"
       >
         <path
           fill="currentColor"
