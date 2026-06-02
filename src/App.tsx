@@ -7,6 +7,7 @@ import Amenities from './components/Amenities';
 import Location from './components/Location';
 import Nosotros from './components/Nosotros';
 import Contact from './components/Contact';
+import WhatsAppBubble from './components/WhatsAppBubble';
 
 function App() {
   useEffect(() => {
@@ -42,6 +43,7 @@ function App() {
       <Location />
       <Nosotros />
       <Contact />
+      <WhatsAppBubble />
     </main>
   );
 }
