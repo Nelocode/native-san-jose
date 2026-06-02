@@ -77,10 +77,10 @@ const Concept: React.FC = () => {
                 position: 'absolute',
                 top: '30px',
                 left: '30px',
-                width: 'clamp(70px, 10vw, 100px)',
-                height: 'clamp(70px, 10vw, 100px)',
+                width: 'clamp(110px, 14vw, 150px)',
+                height: 'clamp(110px, 14vw, 150px)',
                 zIndex: 5,
-                opacity: 0.6,
+                opacity: 0.8,
                 pointerEvents: 'none'
               }}
             >

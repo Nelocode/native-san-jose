@@ -119,7 +119,7 @@ const Contact: React.FC = () => {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-                style={{ width: '42px', height: '42px', flexShrink: 0, opacity: 0.45 }}
+                style={{ width: '64px', height: '64px', flexShrink: 0, opacity: 0.7 }}
               >
                 <img src="/assets/sanjose-seal.png" alt="San José Sello" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(1.2)' }} />
               </motion.div>

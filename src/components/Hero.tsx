@@ -204,10 +204,10 @@ const Hero: React.FC = () => {
           position: 'absolute',
           bottom: '50px',
           right: '5%',
-          width: 'clamp(80px, 10vw, 120px)',
-          height: 'clamp(80px, 10vw, 120px)',
+          width: 'clamp(130px, 16vw, 180px)',
+          height: 'clamp(130px, 16vw, 180px)',
           zIndex: 3,
-          opacity: 0.15,
+          opacity: 0.35,
           pointerEvents: 'none',
         }}
       >
