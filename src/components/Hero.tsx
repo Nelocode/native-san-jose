@@ -195,6 +195,24 @@ const Hero: React.FC = () => {
           </svg>
         </motion.div>
       </motion.div>
+
+      {/* Floating rotating seal */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+        style={{
+          position: 'absolute',
+          bottom: '50px',
+          right: '5%',
+          width: 'clamp(80px, 10vw, 120px)',
+          height: 'clamp(80px, 10vw, 120px)',
+          zIndex: 3,
+          opacity: 0.15,
+          pointerEvents: 'none',
+        }}
+      >
+        <img src="/assets/sanjose-seal.png" alt="San José Sello" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(1.2)' }} />
+      </motion.div>
     </section>
   );
 };

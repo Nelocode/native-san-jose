@@ -112,6 +112,19 @@ const Navbar: React.FC = () => {
             ))}
           </ul>
           <a 
+            href="https://nativeoriente.com/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            style={{ display: 'flex', alignItems: 'center', transition: 'all 0.3s ease' }}
+          >
+            <motion.img 
+              src="/assets/tulote-logo.png" 
+              alt="TuLote Oriente" 
+              whileHover={{ scale: 1.05, filter: 'brightness(1.4)' }}
+              style={{ height: '24px', width: 'auto', filter: 'brightness(1.1) saturate(0.8)', opacity: 0.8 }} 
+            />
+          </a>
+          <a 
             href="#contacto" 
             className="btn-premium" 
             style={{ padding: '12px 30px', fontSize: '0.6rem', letterSpacing: '4px' }}
@@ -192,12 +205,34 @@ const Navbar: React.FC = () => {
                 </motion.a>
               ))}
               <motion.a
+                href="https://nativeoriente.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                custom={navItems.length}
+                variants={linkVariants}
+                onClick={() => setIsOpen(false)}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: '10px',
+                  marginBottom: '10px'
+                }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <img 
+                  src="/assets/tulote-logo.png" 
+                  alt="TuLote Oriente" 
+                  style={{ height: '36px', width: 'auto', filter: 'brightness(1.2)' }} 
+                />
+              </motion.a>
+              <motion.a
                 href="#contacto"
                 variants={linkVariants}
-                custom={navItems.length}
+                custom={navItems.length + 1}
                 onClick={() => setIsOpen(false)}
                 className="btn-premium"
-                style={{ marginTop: '40px', alignSelf: 'center' }}
+                style={{ marginTop: '30px', alignSelf: 'center' }}
               >
                 CONTACTO
               </motion.a>

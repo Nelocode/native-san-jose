@@ -69,6 +69,23 @@ const Concept: React.FC = () => {
               alt="Portería y Ermita"
               style={{ width: '100%', height: '600px', objectFit: 'cover', opacity: 0.8 }}
             />
+            {/* Rotating seal as a watermark on rendering */}
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+              style={{
+                position: 'absolute',
+                top: '30px',
+                left: '30px',
+                width: 'clamp(70px, 10vw, 100px)',
+                height: 'clamp(70px, 10vw, 100px)',
+                zIndex: 5,
+                opacity: 0.6,
+                pointerEvents: 'none'
+              }}
+            >
+              <img src="/assets/sanjose-seal.png" alt="San José Sello" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(1.1)' }} />
+            </motion.div>
             <div style={{
               position: 'absolute',
               bottom: '40px',

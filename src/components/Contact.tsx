@@ -115,6 +115,14 @@ const Contact: React.FC = () => {
                   className="footer-tulote-img"
                 />
               </div>
+              <div className="footer-logo-divider" />
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+                style={{ width: '42px', height: '42px', flexShrink: 0, opacity: 0.45 }}
+              >
+                <img src="/assets/sanjose-seal.png" alt="San José Sello" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(1.2)' }} />
+              </motion.div>
             </div>
             <nav className="footer-nav">
               <a href="#hero">INICIO</a>
